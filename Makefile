@@ -21,6 +21,8 @@ HEADERS = 	\
 		polynomial.h \
 		equation.h \
 		heckecliff.h \
+		quantum_groups.h \
+		quantum_qn.h \
 		testing.h \
 
 
@@ -35,6 +37,8 @@ SOURCES_LIBS =	\
 		polynomial.c \
 		equation.c \
 		heckecliff.c \
+		quantum_groups.c \
+		quantum_qn.c \
 		testing.c \
 
 

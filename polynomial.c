@@ -113,11 +113,11 @@ char *  AlgebraElement_toString(char * res, AlgebraElement * ele){
 	}
 	char indf[128], powf[128];
 
-	if( ele->index != -1){
+	//if( ele->index != -1){
 		sprintf(indf,"_{%d}",  ele->index);
-	}else{
-		indf[0] = 0;
-	}
+	//}else{
+	//	indf[0] = 0;
+	//}
 
 	if(ele->power != 1){
 		sprintf(powf, "^{%d}",  ele->power);

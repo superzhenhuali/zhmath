@@ -36,7 +36,11 @@ typedef enum ElementType_t {
 	ALGEBRA_CLIFF_E,
 	ALGEBRA_HIGH1, 
 	ALGEBRA_HIGH2, 
-	ALGEBRA_HIGH3, 
+	ALGEBRA_HIGH3,
+	//E, F, K, index may be minus if it is odd in super case.
+       	QUANTUM_F,
+       	QUANTUM_K,	
+       	QUANTUM_E,	
 	ALGEBRA_ALL,
 }ElementType;
 

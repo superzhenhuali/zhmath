@@ -8,6 +8,7 @@
 #include "zhmath.h"
 #include "quiver.h"
 #include "algebra.h"
+#include "quantum_qn.h"
 //#include "heckecliff.h"
 #include "testing.h"
 
@@ -363,6 +364,25 @@ void test_algebra_10(){
 	MDEBUG("Monomial:[%s], %d", Monomial_toString(tmp, mo1), mo1->coeff);
 	TEXDEBUG("Monomial:[%s], %d", Monomial_toString(tmp, mo1), mo1->coeff);
 }
+
+void test_quantum_qn(int n){
+	math_list * Tlist;
+	math_list * p;
+	Monomial * mo;
+	char tmp[128];
+	int i=0;
+
+	Tlist = Quantum_Groups_Qn_getAll(n);
+	i = 0;
+	for(p = Tlist; p != NULL; p = p->next){
+		mo = p->data;
+		//MDEBUG("list: %p, p:%p, mo:%p", Tlist, p, mo);
+		MDEBUG("Got element %s", Monomial_toString(tmp, mo));
+		i++;
+	}
+	i ++;
+}
+
 int main(int argc, char * argv[]){
 	int n=2;
 	log_count = 0;
@@ -380,7 +400,8 @@ int main(int argc, char * argv[]){
 	//test_algebra_6();
 	//test_algebra_7();
 	check_tex_log();
-	test_algebra_8(n);
+	//test_algebra_8(n);
+	test_quantum_qn(2);
 	if(tex_log == NULL){
 		fclose(tex_log);
 	}
