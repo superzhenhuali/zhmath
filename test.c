@@ -400,8 +400,8 @@ int main(int argc, char * argv[]){
 	//test_algebra_6();
 	//test_algebra_7();
 	check_tex_log();
-	//test_algebra_8(n);
-	test_quantum_qn(2);
+	test_algebra_8(n);
+	//test_quantum_qn(2);
 	if(tex_log == NULL){
 		fclose(tex_log);
 	}

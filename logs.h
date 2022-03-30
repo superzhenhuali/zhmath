@@ -6,7 +6,7 @@
 #define FORMULAR_LEFT "\n\\begin{align*}"
 #define FORMULAR_RIGHT "\\end{align*}\n"
 
-#define TEX 0
+#define TEX 1
 
 #if TEX
 #define LOG_DEBUG 0

@@ -961,8 +961,9 @@ math_list * Hecke_calculate_II(Monomial *mo){
 			}
 			
 			AlgebraElement * T_i = HeckeElement_new(a->index);
-			AlgebraElement * v_q = AlgebraElement_from_string("q");
-			v_q->type = VARIABLE_E0;
+			//AlgebraElement * v_q = AlgebraElement_from_string("q");
+			//v_q->type = VARIABLE_NOINDEX;
+			AlgebraElement * v_q = Parameter_Variable_new("q");
 			Monomial * m, *m_right;
 			
 			//char tmp[256];
@@ -1033,8 +1034,9 @@ math_list * HeckeCliff_calculate_CT(Monomial *mo){
 			AlgebraElement * T_i = HeckeElement_new(b->index);
 			AlgebraElement * c_ip = CliffElement_new(a->index + 1);
 			AlgebraElement * c_i = CliffElement_new(a->index );
-			AlgebraElement * v_q = AlgebraElement_from_string("q");
-			v_q->type = VARIABLE_E0;
+			//AlgebraElement * v_q = AlgebraElement_from_string("q");
+			//v_q->type = VARIABLE_NOINDEX;
+			AlgebraElement * v_q = Parameter_Variable_new("q");
 
 			Monomial * m, *m_res;
 			/*

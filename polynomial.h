@@ -73,6 +73,7 @@ ElementType AlgebraElement_node_type(math_list *node);
 AlgebraElement * AlgebraElement_node(math_list *node);
 char * AlgebraElement_node_name(math_list *node);
 int AlgebraElement_node_index(math_list *node);
+AlgebraElement * Parameter_Variable_new(const char * name);
 
 int Monomial_sort(Monomial *mo);
 int Monomial_sortType(Monomial *mo);

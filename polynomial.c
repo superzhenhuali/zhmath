@@ -16,6 +16,11 @@ AlgebraElement * AlgebraElement_new(){
 	return res;
 }
 
+AlgebraElement * Parameter_Variable_new(const char * name){
+	AlgebraElement * v_q = AlgebraElement_from_string(name);
+	v_q->type = VARIABLE_NOINDEX;
+	return v_q;
+}
 void Monomial_delete(Monomial * mo){
 	if(mo == NULL){
 		return;
@@ -36,7 +41,7 @@ void Monomial_delete(Monomial * mo){
 AlgebraElement * AlgebraElement_init(AlgebraElement * res){
 	res->type = VARIABLE_E;
 	res->infix[0] = '_';
-	res->index = -1;
+	res->index = 0;
 	res->power = 1;
 	//res->size = sizeof(AlgebraElement);
 	return res;
@@ -113,8 +118,13 @@ char *  AlgebraElement_toString(char * res, AlgebraElement * ele){
 	}
 	char indf[128], powf[128];
 
-	//if( ele->index != -1){
+	if((ele->index  == 0 ) && (ele->type ==VARIABLE_NOINDEX) ){
+		indf[0] = 0;
+	}else{
 		sprintf(indf,"_{%d}",  ele->index);
+	}
+	//if( ele->index != -1){
+	//	sprintf(indf,"_{%d}",  ele->index);
 	//}else{
 	//	indf[0] = 0;
 	//}

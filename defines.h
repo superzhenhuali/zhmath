@@ -26,6 +26,7 @@ extern uint8_t MATRIX_SIZE[8];
 typedef enum ElementType_t {
 	NONE_TYPE= 0,
 	NUMBER_E = 1,
+	VARIABLE_NOINDEX, 
 	VARIABLE_E0, 
 	VARIABLE_E1, 
 	VARIABLE_E2, 
