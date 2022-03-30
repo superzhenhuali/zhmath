@@ -1,3 +1,4 @@
+#include "logs.h"
 #include "polynomial.h"
 #include "quantum_groups.h"
 
@@ -27,5 +28,25 @@ AlgebraElement * QuantumElement_new(ElementType type, uint32_t index){
 	//	MDEBUG("ELE:[%s]", AlgebraElement_toString(tmp, res));
 	//	MDEBUG("ELE: %p, [%s][%s][%d]", res, res->name, res->infix, res->index);
 	//}
+	return res;
+}
+
+math_list * Quantum_Groups_Get_List(ElementType type, int begin_index, int end_index){
+	math_list * res = NULL;
+	
+	AlgebraElement * T;
+	Monomial * mo;
+	int i;
+
+	MDEBUG("Type: %d, index : %d to %d  ", type, begin_index, end_index);
+	//ElementType types[3] = {QUANTUM_F, QUANTUM_E, QUANTUM_K};
+	for(i=begin_index; i<= end_index; i++){
+		T = QuantumElement_new(type, i);
+		mo = Monomial_from_AlgebraElement(T);
+		res = math_list_append(res, node_from_Monomial(mo));
+		MDEBUG("Type: %d, index : %d ", type, i);
+	}
+	
+	//MDEBUG("return : %p, %p", res, mo);
 	return res;
 }

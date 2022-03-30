@@ -4,28 +4,20 @@
 
 
 math_list * Quantum_Groups_Qn_getAll(int n){
-	math_list * res = NULL;
+	math_list * res = NULL, *t = NULL;
 	
 	AlgebraElement * T;
 	Monomial * mo;
-	uint32_t i;
+	uint32_t j;
 
 	ElementType types[3] = {QUANTUM_F, QUANTUM_E, QUANTUM_K};
-	for(i=1; i<= n; i++){
-		int j;
-		for(j=0; j<3; j++){
-			if( (i == n) && (j != 2) ){
-				continue;
-			}
-			T = QuantumElement_new(types[j], i);
-			mo = Monomial_from_AlgebraElement(T);
-			res = math_list_append(res, node_from_Monomial(mo));
-		
-			T = QuantumElement_new(types[j], 0-i);
-			mo = Monomial_from_AlgebraElement(T);
-			res = math_list_append(res, node_from_Monomial(mo));
-		}
-		//MDEBUG("append: %p, %p", res, mo);
+	int lens[3] = {n-1, n-1, n};
+	
+	for(j=0; j<3; j++){
+		t = Quantum_Groups_Get_List(types[j], 1, lens[j]);
+		res = math_list_cat(res, t);
+		t = Quantum_Groups_Get_List(types[j], 0-lens[j], 0-1);
+		res = math_list_cat(res, t);
 	}
 	
 	//MDEBUG("return : %p, %p", res, mo);
