@@ -4,7 +4,14 @@
 This is a  C programming library for mathematics, especially for algebra structures.
 Currently avalible for Hecke-Clifford superalgebra.
 
-#### To run it:
+#### Examples:
+The result of the center of Hecke-Clifford superalgebra of order 2,3,4 are in files:
+	tex/example_2.pdf
+	tex/example_3.pdf
+	tex/example_4.pdf
+Please go to the end of file to check it.
+
+
 The function test_algebra_8() in  test.c is to calculate the center of Hecke-Clifford superalgebra of order n.
 Add it to the main function, and 
 	make clean; make 
