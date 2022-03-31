@@ -453,6 +453,8 @@ void HeckeCliff_Cal_Z(int n){
 	MDEBUG("Tlist %p", Tlist);
 
 	MDEBUGP();
+	MDEBUG("count: %d, %d", n, math_list_length(Tlist));
+	TEXDEBUG("\n\nGot %d basis. \n\n", math_list_length(Tlist));
 	math_list_sort_increase(Tlist, NULL, (math_list_compare_func)compare_length );
 	Tlist = math_list_begin(Tlist);
 	i = 0;
@@ -463,14 +465,12 @@ void HeckeCliff_Cal_Z(int n){
 		char tmp[STR_BUFFER];
 		MDEBUG("list: %p, p:%p, mo:%p", Tlist, p, mo);
 		MDEBUG("Got element %d: %s", i,Monomial_toString(tmp, mo));
-		TEXDEBUG("Got $%d$: $%s$, \n\n", i, Monomial_toString(tmp, mo));
+		TEXDEBUG("Got basis $%d$: $%s$, \n\n", i+1, Monomial_toString(tmp, mo));
 		}
 #endif
 		i++;
 	}
 
-	MDEBUG("count: %d, %d", n, math_list_length(Tlist));
-	TEXDEBUG("\n\nBases: %d. \n\n", math_list_length(Tlist));
 	
 	Polynomial * z = Polynomial_new();
 	Monomial * m1, *m2;
