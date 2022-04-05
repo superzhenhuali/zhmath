@@ -146,7 +146,7 @@ Monomial * Monomial_copy(Monomial * mo){
 	}
 
 	nm = Monomial_new();
-	nm->coeff = mo->coeff;
+	nm->num_coeff = mo->num_coeff;
 	
 	if(NULL == mo->elements){
 		//MDEBUG("IS NULL ELEMENT");
@@ -174,7 +174,7 @@ Monomial * Monomial_copy(Monomial * mo){
 
 Monomial* Monomial_new(){
 	Monomial * res = (Monomial *)malloc_zero(sizeof(Monomial));
-	res->coeff = 1;
+	res->num_coeff = 1;
 	return res;
 	//MDEBUG("Construct: %p", this);
 }
@@ -193,7 +193,7 @@ Monomial * Monomial_from_AlgebraElement(AlgebraElement * ele){
 		return NULL;
 	
 	Monomial * res = Monomial_new();
-	res->coeff = 1;
+	res->num_coeff = 1;
 	math_list * node = node_from_AlgebraElement(ele);
 	res->elements = node;
 	return res;
@@ -220,11 +220,11 @@ Monomial * Monomial_from_string(const char * str){
 		//MDEBUG("Got %s", s2);
 		if(*s2 == '-' ){
 			int num = atoi(s2+1);
-			res->coeff = num*(-1);
+			res->num_coeff = num*(-1);
 		}else 
 		if(ZHM_IS_NUMBER(*s2) ){
 			int num = atoi(s2);
-			res->coeff = num;
+			res->num_coeff = num;
 		}else{
 			ele = NULL;
 			switch(*s2){
@@ -263,7 +263,7 @@ Monomial * Monomial_from_string(const char * str){
 
 Monomial * Monomial_from_Number(Number n){
 	Monomial * res = Monomial_new();
-	res->coeff = n;
+	res->num_coeff = n;
 	return res;
 }
 int Monomial_sortType(Monomial * mo){
@@ -442,7 +442,7 @@ int HeckeCliff_relation1(Monomial *mo, math_list  * begin, math_list  * end){
 					// a : c_2, b:c_1
 					if(a->index > b->index){
 						check = 1;
-						mo->coeff = mo->coeff * (-1);
+						mo->num_coeff = mo->num_coeff * (-1);
 					}
 				}
 				*/
@@ -491,11 +491,11 @@ int HeckeCliff_relation2(Monomial *mo, math_list  * begin, math_list  * end){
 					// a : c_2, b:c_1
 					if(a->index > b->index){
 						check = 1;
-						mo->coeff = mo->coeff * (-1);
+						mo->num_coeff = mo->num_coeff * (-1);
 					}
 					else if(a->index == b->index){
 						check = 2;
-						mo->coeff = mo->coeff * (-1);
+						mo->num_coeff = mo->num_coeff * (-1);
 					}
 				}
 
@@ -554,11 +554,11 @@ int HeckeCliff_relation3(Monomial *mo, math_list  * begin, math_list  * end){
 					// a : c_2, b:T_1
 					if(a->index > b->index){
 						check = 1;
-						mo->coeff = mo->coeff * (-1);
+						mo->num_coeff = mo->num_coeff * (-1);
 					}
 					else if(a->index == b->index){
 						check = 2;
-						mo->coeff = mo->coeff * (-1);
+						mo->num_coeff = mo->num_coeff * (-1);
 					}
 				}
 
@@ -648,14 +648,14 @@ char * Monomial_toString(char *res, Monomial * m){
 		return NULL;
 
 	if((m->elements == NULL )||(math_list_length(m->elements) == 0)){
-		sprintf(res, "%d", m->coeff);
+		sprintf(res, "%d", m->num_coeff);
 		return res;
 	}
 	res[0] = 0;
 
 	//MDEBUGP();
 	
-	switch(m->coeff ){
+	switch(m->num_coeff ){
 		case 1:
 			res[0] = 0;
 			break;
@@ -663,12 +663,12 @@ char * Monomial_toString(char *res, Monomial * m){
 			strcpy(res, "-");
 			break;
 		default:
-			sprintf(res, "%d", m->coeff);
+			sprintf(res, "%d", m->num_coeff);
 			break;
 	}
 	/*
-	if(m->coeff != 1){
-		sprintf(res, "%d", m->coeff);
+	if(m->num_coeff != 1){
+		sprintf(res, "%d", m->num_coeff);
 	}else{
 		res[0] = 0;
 	}*/
@@ -814,7 +814,7 @@ int  Monomial_compare(Monomial *a, Monomial *b){
 	r = math_list_compare(a->elements, b->elements, (math_list_compare_func)AlgebraElement_compare);
 	if(r != 0)return r;
 
-	r = a->coeff - b->coeff;
+	r = a->num_coeff - b->num_coeff;
 	if(r != 0)return r;
 	//math_list * pa, *pb;
 	return r;
@@ -872,7 +872,7 @@ Monomial * Number_mul_AlgebraElement(Number n, AlgebraElement * ele){
 		return NULL;
 	
 	Monomial * res = Monomial_new();
-	res->coeff = n;
+	res->num_coeff = n;
 	math_list * node = node_from_AlgebraElement(ele);
 	res->elements = node;
 	return res;
@@ -888,7 +888,7 @@ Monomial * Number_mul_AlgebraElement(Number n, AlgebraElement * ele){
 
 Monomial * Number_mul_Monomial(Number a, Monomial * m){
 	Monomial * nm = Monomial_copy(m);
-	nm->coeff = a * nm->coeff;
+	nm->num_coeff = a * nm->num_coeff;
 
 	return nm;
 }
@@ -932,9 +932,9 @@ Monomial *  Monomial_mul_Monomial( Monomial *a, Monomial *b){
 
 	Monomial * na;
 	Monomial * nb;
-	if( a->coeff * b->coeff == 0){
+	if( a->num_coeff * b->num_coeff == 0){
 		na = Monomial_new();
-		na->coeff = 0;
+		na->num_coeff = 0;
 		na->elements = NULL;
 		return na;
 	}
@@ -952,7 +952,7 @@ Monomial *  Monomial_mul_Monomial( Monomial *a, Monomial *b){
 		TEXDEBUG("na->elements: %s, nb->elements: %s\n\n", t1, t2);
 	}
 #endif	
-	na->coeff = na->coeff * nb->coeff;
+	na->num_coeff = na->num_coeff * nb->num_coeff;
 	na->elements = math_list_cat(na->elements, nb->elements);
 	//Monomial_sortType(na);
         //Monomial_sortVariable(na);
@@ -998,7 +998,7 @@ Monomial * Monomial_mul_list(int count,...){
 			continue;		
 		}
 		mo = Monomial_copy(marg);
-		res->coeff = res->coeff * mo->coeff;
+		res->num_coeff = res->num_coeff * mo->num_coeff;
 		res->elements = math_list_cat(res->elements, mo->elements);
 		Monomial_sort(res);
         }
@@ -1053,9 +1053,9 @@ char * Polynomial_toString(char *res, Polynomial * poly){
 		Monomial_toString(tmp, mo);
 		//MDEBUG("%p->%p: [%s]", poly, p, tmp);
 		if(p != poly->monomials){
-			if(mo->coeff >= 0 ){
+			if(mo->num_coeff >= 0 ){
 				strcat(res, " + ");
-			}else if(mo->coeff < 0 ){
+			}else if(mo->num_coeff < 0 ){
 				strcat(res, " ");
 			}
 		}
@@ -1090,9 +1090,9 @@ void Polynomial_Output(Polynomial * poly, FILE * fp){
 		Monomial_toString(tmp, mo);
 		//MDEBUG("%p->%p: [%s]", poly, p, tmp);
 		if(p != poly->monomials){
-			if(mo->coeff >= 0 ){
+			if(mo->num_coeff >= 0 ){
 				fprintf(fp, " + ");
-			}else if(mo->coeff < 0 ){
+			}else if(mo->num_coeff < 0 ){
 				fprintf(fp, " ");
 			}
 		}
@@ -1249,8 +1249,8 @@ math_list * Monomial_from_type(Monomial *mo, ElementType type){
 			res2->elements = math_list_append(res2->elements, node);
 		}
 	}
-	res1->coeff = mo->coeff;
-	res2->coeff = 1;
+	res1->num_coeff = mo->num_coeff;
+	res2->num_coeff = 1;
 	math_list * res = NULL;
 	res = math_list_append_from_data(res, res1);
 	res = math_list_append_from_data(res, res2);
@@ -1259,7 +1259,7 @@ math_list * Monomial_from_type(Monomial *mo, ElementType type){
 	//res->next = math_list_node_new();
 	//res->next->data = res2;
 	//res->next->pre = res;
-	//TEXDEBUG("\n\n------%d, Mo: coeff--%d-\n\n", __LINE__, mo->coeff);
+	//TEXDEBUG("\n\n------%d, Mo: coeff--%d-\n\n", __LINE__, mo->num_coeff);
 	//TEXDEBUG("\n\n------%d--return %p, Get [%p], [%p]-\n\n", __LINE__, res, res1, res2);
 	//TEXDEBUG("\n\n------%d--return %p, check [%p], [%p]-\n\n", __LINE__, res, res->data, res->next->data);
 
@@ -1283,7 +1283,7 @@ int Polynomial_cal_sum(Polynomial * poly){
 			math_list * node = q->next;
 			m2 = q->data;
 			if(Monomial_similar(m1, m2) == 0){
-				m1->coeff += m2->coeff;
+				m1->num_coeff += m2->num_coeff;
 				Monomial_delete(m2);
 				math_list_delete_node(q);
 			}
@@ -1294,7 +1294,7 @@ int Polynomial_cal_sum(Polynomial * poly){
 	for(p = poly->monomials->next; p!= NULL; ){
 		Monomial * m1 = p->data;
 		math_list * node = p->next;
-		if(m1->coeff == 0){
+		if(m1->num_coeff == 0){
 			Monomial_delete(m1);
 			math_list_delete_node(p);
 		}
@@ -1306,7 +1306,7 @@ int Polynomial_cal_sum(Polynomial * poly){
 		free(tmp_head);
 	}else{
 		Monomial * m = Monomial_new();
-		m->coeff = 0;
+		m->num_coeff = 0;
 		tmp_head->data = m;
 	}
 	return updated;
@@ -1352,14 +1352,14 @@ int PolyPolynomial_cal_sum(PolyPolynomial * poly){
 	for(p = poly->polymonomials; p!= NULL; p = p->next){
 		PolyMonomial * pm1 = p->data;
 		Monomial * mo = pm1->monomial;
-		if(mo->coeff == -1){
-			mo->coeff = 1;
+		if(mo->num_coeff == -1){
+			mo->num_coeff = 1;
 			math_list * n;
 			Polynomial * px = pm1->coeff;
 
 			for(n = px->monomials; n != NULL; n = n->next){
 				Monomial * mx = n->data;
-				mx->coeff = mx->coeff * (-1);
+				mx->num_coeff = mx->num_coeff * (-1);
 			}
 		}
 
@@ -1387,8 +1387,8 @@ int PolyPolynomial_cal_sum(PolyPolynomial * poly){
 					Monomial * m1, *m2;
 					m1 = Monomial_copy(pm1->monomial);
 					m2 = Monomial_copy(pm2->monomial);
-					m1->coeff = 1;
-					m2->coeff = 1;
+					m1->num_coeff = 1;
+					m2->num_coeff = 1;
 					Monomial_toString(s1, m1);
 					Monomial_toString(s2, m2);
 					if((strcmp(s1, s2) == 0) && (comp != 0)){
@@ -1485,7 +1485,7 @@ PolyPolynomial * PolyPolynomial_from_Polynomial(Polynomial * poly, ElementType t
 			//MDEBUG("Did not Find it");
 			PolyMonomial * pm = PolyMonomial_new();
 			//TEXDEBUG("\n\n------%d---arr1: %p\n\n", __LINE__, arr1);
-			//TEXDEBUG("\n\n------%d---arr1: %d\n\n", __LINE__, arr1->coeff);
+			//TEXDEBUG("\n\n------%d---arr1: %d\n\n", __LINE__, arr1->num_coeff);
 			pm->monomial = Monomial_copy(arr1);
 			//TEXDEBUG("\n\n------%d---\n\n", __LINE__);
 			pm->coeff = malloc_zero(sizeof(Polynomial));
@@ -1515,7 +1515,7 @@ PolyPolynomial * PolyPolynomial_from_Polynomial(Polynomial * poly, ElementType t
 		if(math_list_length(pm->coeff->monomials) == 1){
 			
 			Monomial * mx = pm->coeff->monomials->data;
-			if(mx->coeff == 0){
+			if(mx->num_coeff == 0){
 				math_list_remove(q);
 			}
 		}
@@ -1542,7 +1542,7 @@ char * PolyMonomial_toString(char * str, PolyMonomial * pm){
 		strcpy(str, t2);
 		return str;
 	}else{
-		if((math_list_length(pm->coeff->monomials) == 1) && ((MONOMIAL_NODE(pm->coeff->monomials))->coeff  > 0)){
+		if((math_list_length(pm->coeff->monomials) == 1) && ((MONOMIAL_NODE(pm->coeff->monomials))->num_coeff  > 0)){
 			sprintf(str, "%s \\cdot %s", t1, t2);
 		}else{
 			sprintf(str, "(%s) \\cdot %s", t1, t2);
@@ -1570,7 +1570,7 @@ void PolyMonomial_Output(PolyMonomial * pm, FILE * fp){
 	//	Monomial_Output(pm->monomial, fp);
 	//	return str;
 	//}else{
-		if((math_list_length(pm->coeff->monomials) == 1) && ((MONOMIAL_NODE(pm->coeff->monomials))->coeff  > 0)){
+		if((math_list_length(pm->coeff->monomials) == 1) && ((MONOMIAL_NODE(pm->coeff->monomials))->num_coeff  > 0)){
 			Polynomial_Output(pm->coeff, fp);
 			fprintf(fp," \\cdot ");
 			Monomial_Output(pm->monomial, fp);
@@ -1705,9 +1705,9 @@ Monomial * Monomial_get_coeff_by_type(Monomial * mo, ElementType type){
 	}
 
 	//if((found != NULL) && (found !=  mo->elements)){
-	if( (found != NULL) && (mo->coeff != 0)){
+	if( (found != NULL) && (mo->num_coeff != 0)){
 		Monomial * nm = Monomial_new();
-		nm->coeff = mo->coeff;
+		nm->num_coeff = mo->num_coeff;
 		for(q = mo->elements; q != found; q = q->next){
 			AlgebraElement * nele = AlgebraElement_copy(q->data);
 			nm->elements = math_list_append_from_data(nm->elements , nele);
@@ -1729,9 +1729,9 @@ Monomial * Monomial_get_coeff_by_Ele(Monomial * mo, AlgebraElement * ele){
 	}
 
 	//if((found != NULL) && (found !=  mo->elements)){
-	if( (found != NULL) && (mo->coeff != 0)){
+	if( (found != NULL) && (mo->num_coeff != 0)){
 		Monomial * nm = Monomial_new();
-		nm->coeff = mo->coeff;
+		nm->num_coeff = mo->num_coeff;
 		for(q = mo->elements; q != NULL; q = q->next){
 			if(q == found) continue;
 			AlgebraElement * nele = AlgebraElement_copy(q->data);

@@ -361,8 +361,8 @@ void test_algebra_10(){
 	mo1 = Monomial_from_string(str1);
 	char tmp[256];
 	
-	MDEBUG("Monomial:[%s], %d", Monomial_toString(tmp, mo1), mo1->coeff);
-	TEXDEBUG("Monomial:[%s], %d", Monomial_toString(tmp, mo1), mo1->coeff);
+	MDEBUG("Monomial:[%s], %d", Monomial_toString(tmp, mo1), mo1->num_coeff);
+	TEXDEBUG("Monomial:[%s], %d", Monomial_toString(tmp, mo1), mo1->num_coeff);
 }
 
 void test_quantum_qn(int n){

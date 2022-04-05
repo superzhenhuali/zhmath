@@ -159,7 +159,7 @@ math_list * HeckeCliff_GetAll(uint32_t size, int type){
 				found = math_list_find_data(res, m, (math_list_compare_func)Monomial_similar);
 				if(found == NULL){
 					//NOTICE: Just get list, not calculate.
-					m->coeff = 1;
+					m->num_coeff = 1;
 					node = node_from_Monomial(m);
 					Monomial_delete(m);
 					res = math_list_append(res, node);
@@ -268,7 +268,7 @@ int HeckeCliff_C_C(Monomial *mo, math_list * begin){
 	if(a->index > b->index){
 		math_list_exchange(begin, begin->next);
 		mo->elements = math_list_begin(begin);
-		mo->coeff = mo->coeff * (-1);
+		mo->num_coeff = mo->num_coeff * (-1);
 		updated ++;
 	}else if( a->index == b->index){
 		updated ++;
@@ -280,7 +280,7 @@ int HeckeCliff_C_C(Monomial *mo, math_list * begin){
 		math_list_delete_node(begin);
 		
 
-		mo->coeff = mo->coeff * (-1);
+		mo->num_coeff = mo->num_coeff * (-1);
 		if(pre == NULL){
 			mo->elements = math_list_begin(next);
 		}else{
@@ -949,7 +949,7 @@ math_list * Hecke_calculate_II(Monomial *mo){
 					AlgebraElement_toString(tmp1, mo->elements->data), 
 					AlgebraElement_toString(tmp2, p->data));
 			left->elements = math_list_sublist(mo->elements, mo->elements, p);
-			left->coeff = mo->coeff;
+			left->num_coeff = mo->num_coeff;
 			right->elements = math_list_sublist(mo->elements, p->next->next, NULL);
 			MDEBUG("Left  length %d", math_list_length(left->elements));
 			MDEBUG("right length %d", math_list_length(right->elements));
@@ -1022,7 +1022,7 @@ math_list * HeckeCliff_calculate_CT(Monomial *mo){
 			//X X ... X       T_i T_i X X ....X
 			//mo->elements, ->begin   end ->
 			left->elements = math_list_sublist(mo->elements, mo->elements, p);
-			left->coeff = mo->coeff;
+			left->num_coeff = mo->num_coeff;
 			right->elements = math_list_sublist(mo->elements, p->next->next, NULL);
 			
 			{
@@ -1065,7 +1065,7 @@ math_list * HeckeCliff_calculate_CT(Monomial *mo){
 			res = math_list_append_from_data(res, m_res);
 
 			m = AlgebraElement_mul_AlgebraElement(v_q, c_ip);
-			m->coeff = -1;
+			m->num_coeff = -1;
 			m_res = Monomial_mul_list(3, left, m, right);
 			//MDEBUG("Result       :[%s]", Monomial_toString(tmp, m_res));
 			res = math_list_append_from_data(res, m_res);

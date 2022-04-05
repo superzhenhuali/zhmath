@@ -97,14 +97,14 @@ int  Equation_Process(Equation * eq){
 		math_list * p;
 		for(p = eq->right->monomials; p!= NULL; p = p->next){
 			Monomial * m = p->data;
-			m->coeff = m->coeff * (-1);
+			m->num_coeff = m->num_coeff * (-1);
 			updated ++;
 		}
 		eq->left->monomials = math_list_cat(eq->left->monomials, eq->right->monomials);
 	}
 	math_list * node = math_list_node_new();
 	Monomial * m = Monomial_new();
-	m->coeff = 0;
+	m->num_coeff = 0;
 	node->data = m;
 	eq->right->monomials = node;
 #if 0
@@ -560,7 +560,7 @@ math_list * PPEquations_solve_1(math_list ** res_p, math_list ** ppeqs_p){
 			eq->left = eleft;
 			Polynomial * eright = Polynomial_new();
 			Monomial * mright = Monomial_new();
-			mright->coeff = 0;
+			mright->num_coeff = 0;
 			eq->right = eright;
 
 			math_list * node = math_list_node_from(eq);
@@ -603,7 +603,7 @@ math_list * PPEquations_solve_1(math_list ** res_p, math_list ** ppeqs_p){
 				mlist = n;
 			}
 			Monomial_delete(mo);
-			mo->coeff = 1;
+			mo->num_coeff = 1;
 			p = q;
 
 			continue;
@@ -823,7 +823,7 @@ Equation * PPEquation_to_solve_Equation(PPEquation * ppeq){
 		Equation_toString(eq_s, eq);
 		//TEXDEBUG("Become Equation {$%s$}.", eq_s);
 		////
-		//mright->coeff = mright->coeff * (-1);
+		//mright->num_coeff = mright->num_coeff * (-1);
 		tag = 0;
 		mleft = eq->left->monomials->data;
 		mright = eq->right->monomials->data;

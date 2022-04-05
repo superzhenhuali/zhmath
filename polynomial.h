@@ -17,7 +17,8 @@ typedef struct AlgebraElement_t{
 
 typedef struct Monomial_t{
 	math_list * elements;
-	Number coeff;
+	Number num_coeff;
+	struct Polynomial_t * poly_coeff;
 }Monomial;
 
 typedef struct Polynomial_t{
